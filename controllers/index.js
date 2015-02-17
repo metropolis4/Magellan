@@ -2,20 +2,24 @@ var locations = require('../models/locations.js');
 
 var indexController = {
 	index: function(req, res){
-        if(!req.params.location){req.params.location = 'Seville'}
-        if(!locations[req.params.location]){
+        var location = req.params.location;
+        if(!location){location = 'Seville'}
+        if(!locations[location]){
             res.render('not-found', {
-                location: req.params.location
+                location: location
             });
         }
         res.render('index', {
-            location: req.params.location,
-            info: locations[req.params.location].info,
-            next: locations[req.params.location].next
+            location: location,
+            info: locations[location].info,
+            next: locations[location].next
         });
     },
-    notFound: function(req, res){
-
+    next: function(req, res){
+        res.send({
+            location: req.query.location,
+            nextLocation: locations[req.query.location].next
+        });
     }
 
 };
