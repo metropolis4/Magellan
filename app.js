@@ -12,6 +12,11 @@ app.set('views', __dirname + '/views');
 // app.get('/', indexController.index);
 app.get('/:location?', function(req, res){
     if(!req.params.location){req.params.location = 'Seville'}
+    if(!locations[req.params.location]){
+        res.render('not-found', {
+            location: req.params.location
+        });
+    }
     res.render('index', {
         location: req.params.location,
         info: locations[req.params.location].info,
