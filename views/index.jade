@@ -1,4 +1,9 @@
 extends layout
 
 block content
-	h1 Hello Boulder!
+    h1= location
+    p= info
+    if next
+        a(href=next) Next Location
+    else 
+        a(href='/') Home
